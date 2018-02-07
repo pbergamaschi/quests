@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg-root>
+  <path>
+    <xsl-templates>.\XslTemplates</xsl-templates>
+    <log>.\Log</log>
+    <temp>.\Temp</temp>
+  </path>
+  <network>
+    <connection tcpPort="7002" timeout="60000" auth-method="DIGEST"/>
+    <!--> "DIGEST" (default) || "NONE"<-->
+    <transmission timeout="60000"/>
+    <rtsp port="554" max_transcoding_output_fps="8" http_tunneling_port="0"/>
+  </network>
+  <servers>
+    <server url="localhost" port="7000" codename="" descr=""/>
+  </servers>
+  <image width="120" height="80" quality="7" fps="2."/>
+  <firebase-server-key value="AAAAg4psWoM:APA91bG0DNMaEpdWYfEBB25l8HEmaqicaIkGwjugeZACM4pdu3sSxPqAOyECxnOOV1_0CdlooG1AwZPZ5rWjHmmXTiYAi1J8D3eTz7-QSyVe9z-ouVZBxTtU_sf0GjOoZ1qM20QKLetl"/>
+  <firebase-notification-play-sound value="1"/>
+</cfg-root>

@@ -1,0 +1,2 @@
+# quests#1
+You'll find a file named *MobileConfig.xml* in this folder, the target for your quest is to change the value of the attribute *max_transcoding_output_fps* from *8* to an arbitrary input requested number.
