@@ -1,0 +1,9 @@
+from bs4 import BeautifulSoup
+import lxml
+import urllib
+import urllib.request
+
+webpage = urllib.request.urlopen('https://www.xkcd.com/')
+soup = BeautifulSoup(webpage, 'lxml')
+for link in soup.find_all('a'):
+    print(link.get('href'))
