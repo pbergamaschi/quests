@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:>
+    <xs:element name="cfg-root">
+        <xs:all>
+            <xs:element minOccurs="1" maxOccurs="1" name="path">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs=:"0" maxOccurs="1" name="xsl-templates" type="xs:string" />
+                        <xs:element minOccurs=:"0" maxOccurs="1" name="log" type="xs:string" />
+                        <xs:element minOccurs=:"0" maxOccurs="1" name="temp" type="xs:string" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="1" maxOccurs="1" name="network">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="1" name="connection">
+                            <xs:complexType>
+                                <xs:attribute name="tcpPort" type="xs:integer">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:integer">
+                                            <xs:minInclusive value="0"/>
+                                            <xs:maxInclusive value="65535"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="timeout" type="xs:integer">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:integer">
+                                            <xs:minInclusive value="0"/>
+                                            <xs:maxInclusive value="60000"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                                <xs:attribute name="auth-method" type="xs:string">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                            <xs:enumeration value="DIGEST"/>
+                                            <xs:enumeration value="NONE"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" maxOccurs="1" name="transmission">
+                            <xs:attribute name="timeout" type="xs:integer">
+                                <xs:restriction base="xs:integer">
+                                    <xs:minInclusive value="0"/>
+                                    <xs:maxInclusive value="60000"/>
+                                </xs:restriction>
+                            </xs:attribute>
+                        </xs:element>
+                        <xs:element name="rtsp" type=>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            
+
+            <xs:complexType>
+        
+        
+        
+        </xs:all>
