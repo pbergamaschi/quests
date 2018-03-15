@@ -8,8 +8,7 @@
           <xs:element minOccurs=:"0" maxOccurs="1" name="xsl-templates" type="xs:string" />
             <xs:simpleType>
               <xs:restriction base="xs:string">
-                <xs:pattern value="[\|">
-                  <!-- Need to get regex in here -->
+                <xs:pattern value="([A-Za-z]:)?(\\(\w|\s|-)+)+" />
               </xs:restriction>
             </xs:simpleType>
           <xs:element minOccurs=:"0" maxOccurs="1" name="log" type="xs:string" />
@@ -86,6 +85,13 @@
       <xs:complexType>
         <xs:sequence>
           <xs:attribute name="url" type="xs:string"/>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="localhost|[0-9]+.[0-9]+.[0-9]+.[0-9]+">
+              <!-- I know this does not limit the # of digits in each octet,
+              but I could not figure out how to specify range for a character
+              class with this flavor of regex-->
+            </xs:restriction>
+          </xs:attribute>
           <xs:attribute name="port" type="xs:integer">
             <xs:restriction base="xs:integer">
               <xs:minInclusive value="0"/>
@@ -93,7 +99,10 @@
             </xs:restriction>
           </xs:attribute>
           <xs:attribute name="codename" type="xs:string">
-            <!--<xs:re> find out way to restrict the space character -->
+            <xs:restriction base="xs:string">
+              <xs:pattern value="\S*">
+              <!-- I'm not sure if this will work, it matched whitespace
+              in the tester I used... -->
           </xs:attribute>
           <xs:attribute name="descr" type="xs:string" />
         </xs:sequence>
@@ -126,7 +135,7 @@
     <xs:element minOccurs="0" maxOccurs="1" name="firebase-server-key">
       <xs:attribute name="value" type="xs:string">
         <xs:restriction base="xs:string">
-          <!-- Find a way to restrict space and character count <xs:pattern> -->
+          <xs:pattern value="[a-zA-Z0-9]{152}">
         </xs:restriction>
       </xs:attribute>
     </xs:element>
