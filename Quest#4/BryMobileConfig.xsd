@@ -27,70 +27,67 @@
   <xs:element minOccurs="1" maxOccurs="1" name="path">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs=:"0" maxOccurs="1" name="xsl-templates" type="xs:path_t" />
-        <xs:element minOccurs=:"0" maxOccurs="1" name="log" type="xs:path_t" />
-        <xs:element minOccurs=:"0" maxOccurs="1" name="temp" type="xs:path_t" />
+        <xs:element minOccurs="0" maxOccurs="1" name="xsl-templates" type="xs:path_t" />
+        <xs:element minOccurs="0" maxOccurs="1" name="log" type="xs:path_t" />
+        <xs:element minOccurs="0" maxOccurs="1" name="temp" type="xs:path_t" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element minOccurs="1" maxOccurs="1" name="network">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="1" name="connection">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:attribute name="tcpPort" type="xs:port_t">
-              <xs:attribute name="timeout" type="xs:time_t">
-              <xs:attribute name="auth-method" type="xs:string">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:enumeration value="DIGEST"/>
-                    <xs:enumeration value="NONE"/>
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:attribute>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="transmission">
-          <xs:attribute name="timeout" type="xs:time_t">
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="rtsp">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:attribute name="port" type="xs:port_t">
-              <xs:attribute name="max_transcoding_output_fps" type="xs:integer">
-                <xs:restriction base="xs:integer">
-                  <xs:minInclusive value="0"/>
-                  <xs:maxInclusive value="60"/>
-                </xs:restriction>
-              </xs:attribute>
-              <xs:attribute name="http_tunneling_port" type="xs:port_t">
-            </xs:sequence>  
-          </xs:complexType>
-        </xs:element>
-      </xs:complexType>          
-    </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="connection">
+        <xs:complexType>
+          <xs:attribute name="tcpPort" type="xs:port_t"/>
+          <xs:attribute name="timeout" type="xs:time_t"/>
+          <xs:attribute name="auth-method" type="xs:string">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="DIGEST"/>
+                <xs:enumeration value="NONE"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="transmission">
+        <xs:attribute name="timeout" type="xs:time_t"/>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="rtsp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:attribute name="port" type="xs:port_t"/>
+            <xs:attribute name="max_transcoding_output_fps" type="xs:integer">
+              <xs:restriction base="xs:integer">
+                <xs:minInclusive value="0"/>
+                <xs:maxInclusive value="60"/>
+              </xs:restriction>
+            </xs:attribute>
+            <xs:attribute name="http_tunneling_port" type="xs:port_t"/>
+          </xs:sequence>  
+        </xs:complexType>
+      </xs:element>
+    </xs:complexType>          
+  </xs:element>
   <xs:element minOccurs="1" maxOccurs="1" name="servers">
     <xs:complexType>
       <xs:sequence>
-        <xs:attribute name="url" type="xs:string"/>
+        <xs:attribute name="url" type="xs:string">
           <xs:restriction base="xs:string">
-            <xs:pattern value="localhost|[0-9]+.[0-9]+.[0-9]+.[0-9]+">
+            <xs:pattern value="localhost|[0-9]+.[0-9]+.[0-9]+.[0-9]+"/>
               <!-- I know this does not limit the # of digits in each octet,
               but I could not figure out how to specify range for a character
               class with this flavor of regex-->
           </xs:restriction>
         </xs:attribute>
-        <xs:attribute name="port" type="xs:port_t">
+        <xs:attribute name="port" type="xs:port_t"/>
         <xs:attribute name="codename" type="xs:string">
           <xs:restriction base="xs:string">
-            <xs:pattern value="\S*">
+            <xs:pattern value="\S*"/>
               <!-- I'm not sure if this will work, it matched whitespace
               in the tester I used... -->
-          </restriction>
+          </xs:restriction>
         </xs:attribute>
-        <xs:attribute name="descr" type="xs:string" />
+        <xs:attribute name="descr" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -99,20 +96,20 @@
       <xs:sequence>
         <xs:attribute name="width">
           <xs:restriction base="xs:integer">
-            <xs:minInclusive value="80">
-            <xs:maxInclusive value="80000">
+            <xs:minInclusive value="80"/>
+            <xs:maxInclusive value="80000"/>
           </xs:restriction>
         </xs:attribute>
         <xs:attribute name="height">
           <xs:restriction base="xs:integer">
-            <xs:minInclusive value="60">
-            <xs:maxInclusive value="60000">
+            <xs:minInclusive value="60"/>
+            <xs:maxInclusive value="60000"/>
           </xs:restriction>
         </xs:attribute>
         <xs:attribute name="quality">
           <xs:restriction base="xs:integer">
-            <xs:minInclusive value="1">
-            <xs:maxInclusive value="100">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="100"/>
           </xs:restriction>
         </xs:attribute>
       </xs:sequence>
@@ -121,7 +118,7 @@
   <xs:element minOccurs="0" maxOccurs="1" name="firebase-server-key">
     <xs:attribute name="value" type="xs:string">
       <xs:restriction base="xs:string">
-        <xs:pattern value="[a-zA-Z0-9]{152}">
+        <xs:pattern value="[a-zA-Z0-9]{152}"/>
       </xs:restriction>
     </xs:attribute>
   </xs:element>
@@ -131,3 +128,5 @@
     </xs:attribute>
   </xs:element>
 </xs:element>
+
+</xs:schema>
