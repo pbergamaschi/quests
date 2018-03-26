@@ -1,7 +1,7 @@
 from lxml import etree
 
 
-xmlschema_doc = etree.parse('BryMobileConfig.xsd')
+xmlschema_doc = etree.parse('MobileConfigFin.xsd')
 xmlschema = etree.XMLSchema(xmlschema_doc)
 
 xml_doc = etree.parse('MobileConfig.xml')

@@ -1,0 +1,236 @@
+<!-- Working XSD... I decided to forgo using complex types for the time being
+since I cannot get my existing XSD to utilize them without errors
+This document also still needs some work on the regex's... -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="cfg-root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="path">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="xsl-templates">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="(\.|[A-Za-z]:)?(\\(\w|\s|-)+)+" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="log">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="(\.|[A-Za-z]:)?(\\(\w|\s|-)+)+" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="temp">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="(\.|[A-Za-z]:)?(\\(\w|\s|-)+)+" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="network">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="connection">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="tcpPort">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="65535"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="timeout">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="60000"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="auth-method">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="DIGEST"/>
+                            <xs:enumeration value="NONE"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="transmission">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="timeout">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="60000"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="rtsp">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="port">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="65535"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="max_transcoding_output_fps">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="60"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="http_tunneling_port">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="65535"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="servers">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="server">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="url">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:pattern value="localhost|[0-9]+.[0-9]+.[0-9]+.[0-9]+"/>
+                            <!-- I know this does not limit the # of digits in each octet,
+                            but I could not figure out how to specify range for a character
+                            class with this flavor of regex-->
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="port">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="65535"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="codename">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:pattern value="\S*"/>
+                            <!-- I'm not sure if this will work, it matched whitespace
+                            in the tester I used... -->
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute type="xs:string" name="descr"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="image">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="width">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                      <xs:minInclusive value="80"/>
+                      <xs:maxInclusive value="80000"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute> 
+                <xs:attribute name="height">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                      <xs:minInclusive value="80"/>
+                      <xs:maxInclusive value="60000"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute> 
+                <xs:attribute name="quality">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                      <xs:minInclusive value="1"/>
+                      <xs:maxInclusive value="100"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="fps">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                      <xs:minInclusive value="0"/>
+                      <xs:maxInclusive value="60"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute> 
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="firebase-server-key">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="value">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:pattern value="\S{152}"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="firebase-notification-play-sound">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="value">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                      <xs:pattern value="[0-1]{1}"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
